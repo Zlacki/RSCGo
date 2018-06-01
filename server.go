@@ -53,7 +53,7 @@ func processClient(conn net.Conn) {
 		size = int(tmpSize)
 		if size >= 160 {
 			tmpSize2, _ := reader.ReadByte()
-			size = (size - 160) * 256 + int(tmpSize2)
+			size = (size-160)*256 + int(tmpSize2)
 		}
 		if size >= reader.Buffered() {
 			if size < 160 && size > 1 {
@@ -74,7 +74,8 @@ func processClient(conn net.Conn) {
 			if size < 160 {
 				payload[size] = lastByte
 			}
-			fmt.Println("Incoming packet[opcode:", opcode, ";size:", size, ";]")
+			p := NewPacket(int(opcode), size, payload)
+			fmt.Printf("Incoming packet[opcode:%d;length:%d;]\n", p.Opcode, p.Length)
 		} else {
 			fmt.Println("Error with incoming packet.")
 		}
