@@ -10,6 +10,10 @@ import (
 	"time"
 )
 
+type Session struct {
+	conn net.Conn
+}
+
 var port = flag.Int("port", 43594, "The port for the server to listen on")
 
 func main() {
@@ -40,6 +44,7 @@ func processClient(conn net.Conn) {
 	defer conn.Close()
 	remoteAddress := conn.RemoteAddr().String()
 	fmt.Println("Incoming client from: ", remoteAddress)
+	session := Session{conn}
 	reader := bufio.NewReader(conn)
 	for {
 		if reader.Size() < 2 {
@@ -76,6 +81,8 @@ func processClient(conn net.Conn) {
 			}
 			p := NewPacket(int(opcode), size, payload)
 			fmt.Printf("Incoming packet[opcode:%d;length:%d;]\n", p.Opcode, p.Length)
+			ph := NewPacketHandler(&session, &p)
+			ph.HandlePacket()
 		} else {
 			fmt.Println("Error with incoming packet.")
 		}
