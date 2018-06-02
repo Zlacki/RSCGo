@@ -3,10 +3,14 @@ package main
 import (
 	"fmt"
 	"net"
+	"strings"
 )
 
 type Session struct {
 	conn net.Conn
+	id int64
+	uID byte
+	ipAddress string
 }
 
 func (s Session) WriteLong(i int64) {
@@ -29,6 +33,7 @@ func (s Session) WriteByte(b byte) {
 }
 
 func NewSession(conn net.Conn) Session {
-	s := Session{conn}
+	s := Session{conn, -1, 0xFF, strings.Split(conn.RemoteAddr().String(), ":")[0]}
+	fmt.Printf("Accepting connection from: %s\n", s.ipAddress)
 	return s
 }
