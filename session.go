@@ -7,9 +7,9 @@ import (
 )
 
 type Session struct {
-	conn net.Conn
-	id int64
-	uID byte
+	conn      net.Conn
+	id        int64
+	uID       byte
 	ipAddress string
 }
 
@@ -32,8 +32,12 @@ func (s Session) WriteByte(b byte) {
 	}
 }
 
+func (s Session) String() string {
+	return s.ipAddress
+}
+
 func NewSession(conn net.Conn) Session {
 	s := Session{conn, -1, 0xFF, strings.Split(conn.RemoteAddr().String(), ":")[0]}
-	fmt.Printf("Accepting connection from: %s\n", s.ipAddress)
+	fmt.Printf("Accepting connection from: %s\n", s)
 	return s
 }

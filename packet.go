@@ -1,9 +1,9 @@
 package main
 
 type packet struct {
-	opcode int
-	length int
-	data   []byte
+	opcode        uint8
+	length        int
+	data          []byte
 	currentOffset int
 }
 
@@ -16,6 +16,6 @@ func (p *packet) readByte() byte {
 	return p.data[p.currentOffset]
 }
 
-func NewPacket(opcode int, length int, data []byte) packet {
+func NewPacket(opcode uint8, length int, data []byte) packet {
 	return packet{opcode, length, data, 0}
 }
