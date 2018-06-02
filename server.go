@@ -36,71 +36,7 @@ func main() {
 		}
 		s := NewSession(clientSocket)
 		player := NewPlayer(&s, "", "")
+		/* TODO: Collections of server entities, incl. Players */
 		go player.process()
-		//		go handleIncomingPackets(session)
 	}
 }
-
-/*func handleIncomingPackets(session Session) {
-	reader := bufio.NewReader(session.conn)
-	for {
-		var lastByte byte = 0
-		var size int = 0
-		tmpSize, err := reader.ReadByte()
-		if err != nil {
-			break
-		}
-		size = int(tmpSize)
-		if size >= 160 {
-			tmpSize2, err := reader.ReadByte()
-			if err != nil {
-				break
-			}
-			size = (size-160)*256 + int(tmpSize2)
-		}
-		if size >= reader.Buffered() {
-			if size < 160 && size > 1 {
-				lastByteTmp, err := reader.ReadByte()
-				if err != nil {
-					break
-				}
-				lastByte = lastByteTmp
-				size--
-			}
-			payload := make([]byte, size)
-			opcode, err := reader.ReadByte()
-			if err != nil {
-				break
-			}
-			size--
-			if size >= 160 {
-				i, err := reader.Read(payload)
-				if i < size || err != nil {
-					break
-				}
-			} else if size > 0 {
-				i, err := reader.Read(payload)
-				if i < size || err != nil {
-					break
-				}
-			}
-			if size < 160 {
-				payload[size] = lastByte
-				size++
-			}
-			p := NewPacket(int(opcode), size, payload)
-			fmt.Printf("Incoming packet[opcode:%d;length:%d;]\n", p.opcode, p.length)
-			ph := NewPacketHandler(NewPlayer(session, "", ""), &p)
-			ph.HandlePacket()
-		} else {
-			fmt.Printf("Error with incoming packet.  reader.Size():%d; reader.Buffered():%d\n", reader.Size(), reader.Buffered())
-		}
-	}
-
-	fmt.Printf("Closing connection from: %s\n", session.ipAddress)
-	session.conn.Close()
-	if session.conn != nil {
-		session.conn = nil
-	}
-}
-*/
