@@ -55,7 +55,7 @@ func (self Player) process() {
 		 * in the first 2 bytes of the frame, forming a
 		 * short integer(16 bits).
 		 *
-		 * I imagine Jagex made this SmartUint16 type to
+		 * I imagine Jagex made this SmartInt type to
 		 * save bandwidth, as this is a circa-2001 MMORPG.
 		 * This type is unsigned.
 		 */
@@ -63,9 +63,9 @@ func (self Player) process() {
 		caret++
 
 		/**
-		 * Here we check if it's encoded as a smartUint16.
+		 * Here we check if it's encoded as a short integer.
 		 * Any length of 160 or over should be encoded to
-		 * a smartUint16.
+		 * a short integer	.
 		 */
 		if length >= 160 {
 			length = (length-160)*256 + int(buffer[caret]&0xFF)
@@ -73,7 +73,7 @@ func (self Player) process() {
 		}
 		if length >= bytesRead-2 {
 			/**
-			 * If the packet frame is a smartUint8, the second byte
+			 * If the packet frame is a byte, the second byte
 			 * written to the buffer is the last byte of the packet
 			 * frame.  I can't be sure why they did this, yet.
 			 */
@@ -89,7 +89,7 @@ func (self Player) process() {
 			 * It's like an identifier code for what operation
 			 * this packet is supposed to execute on the server.
 			 *
-			 * Maximum is 256, so max user operations is 256.
+			 * Maximum is 255, so max user operations is 255.
 			 * Potential to expand, but probably never will
 			 * need to.
 			 *
