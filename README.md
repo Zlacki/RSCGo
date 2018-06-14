@@ -8,4 +8,4 @@ This is a learning venture, as well as an attempt to gain proficiency in Golang 
 
 Fully open source, released under the Unlicense public domain waiver.  Enjoy.
 
-## If you like my work, please help me pay the bills with a PayPal donation.  Anything helps.  HometoFSM@gmail.com ##
+## If you like my work, please help me pay the bills with a PayPal donation.  Anything helps.  thefsmhome@gmail.com ##
