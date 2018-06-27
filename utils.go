@@ -17,8 +17,8 @@ PTvTEyFY2QbNu96tBlVM78N7Rq2HI8nN
 -----END ECDSA PUBLIC KEY-----
 `)
 
-func equinoxUpdate() error, bool {
-  var opts equinox.Options
+func equinoxUpdate() (error, bool) {
+  opts := equinox.Options{Channel: "stable"}
   if err := opts.SetPublicKeyPEM(publicKey); err != nil {
     return err, false
   }
