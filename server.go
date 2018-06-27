@@ -18,6 +18,8 @@ func init() {
 }
 
 func main() {
+	fmt.Println("Checking for updates...")
+	equinoxUpdate()
 	fmt.Print("Attempting to bind to port ", strconv.Itoa(*port), "...")
 	socketListener, err := net.Listen("tcp", ":"+strconv.Itoa(*port))
 	if err != nil {
