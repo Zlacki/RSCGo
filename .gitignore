@@ -1,2 +1,5 @@
-./bin/
-./appveyor.yml
+/appveyor.yml
+!/bin/
+!/bin/target/
+!/bin/target/*
+/bin/target/*/*
