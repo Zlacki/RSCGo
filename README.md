@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/5wnqy3crbvp653ih?svg=true)](https://ci.appveyor.com/project/Zlacki/rscgo)
+
 # RSCGo
 
 Simple RSC server emulator for protocol 204 written in 100% Go.

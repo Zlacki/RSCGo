@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # Set the name of the binary file to create, global var
-BINARY_NAME='GoPK'
+BINARY_NAME='gorsc'
 
 
 # Clean the old binaries.  Might be unnecessary, not sure.
-# Unsure if `find` args are POSIX compliant or not, maybe look into it later and if not fix it.
 function cleanBinaries() {
     echo -n "Cleaning old $BINARY_NAME binaries..."
     find ./bin/ -executable -xtype f -delete
     echo 'done'
 }
 
-# Build new binaries.  Takes 2 arguments.
+# Build new binaries.  Takes 3 arguments.
 #
 # arg1(arch): the target platforms architecture
 # arg2(os): the target platforms operating system
+# arg3(osName): human-readable version of the OS name, for printing messages
 function buildBinaries() {
     local arch=$1
     local os=$2
@@ -37,31 +37,18 @@ function buildBinaries() {
     echo 'done'
 }
 
-if [[ $# == 0 ]]; then
-	# clean house
-	cleanBinaries
+# clean house
+if [[ $1 = 'clean' ]]; then
+    cleanBinaries
+else
+    # build house
+    for os in linux openbsd freebsd netbsd darwin solaris windows; do
+        if [[ $os != 'solaris' ]]; then
+            buildBinaries 386 $os
+        fi
+        buildBinaries amd64 $os
+        echo
+    done
 
-	# build house
-	for os in linux openbsd freebsd netbsd darwin solaris windows; do
-	    if [[ $os != 'solaris' ]]; then
-	        buildBinaries 386 $os
-	    fi
-	    buildBinaries amd64 $os
-	    echo
-	done
-
-	echo "Compilation for all of the platforms has completed.  Goodbye."
-elif [[ $1 = 'clean' ]]; then
-	cleanBinaries
-elif [[ $1 = 'make' ]]; then
-	# build house
-	for os in linux openbsd freebsd netbsd darwin solaris windows; do
-	    if [[ $os != 'solaris' ]]; then
-	        buildBinaries 386 $os
-	    fi
-	    buildBinaries amd64 $os
-	    echo
-	done
-
-	echo "Compilation for all of the platforms has completed.  Goodbye."
+    echo "Compilation for all of the platforms has completed.  Goodbye."
 fi

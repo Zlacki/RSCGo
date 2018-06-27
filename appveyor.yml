@@ -1,0 +1,17 @@
+version: 0.1.{build}
+skip_branch_with_pr: true
+image: Ubuntu
+hosts:
+  swiftpk.net: 167.114.113.235
+build_script:
+- sh: cross-compile.sh
+notifications:
+- provider: Email
+  to:
+  - admin@swiftpk.net
+  - aeros.storkpk@gmail.com
+  subject: 'AppVeyor CI Management[GoRSC]: Build Updates'
+  message: There has been some sort of change with the building of your Go project, GoRSC, a high performance RuneScape Classic emulator.
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
