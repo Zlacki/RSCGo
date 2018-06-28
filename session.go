@@ -14,17 +14,17 @@ type Session struct {
 }
 
 func (s Session) WriteLong(i int64) {
-	s.WriteByte(byte(i >> 56))
-	s.WriteByte(byte(i >> 48))
-	s.WriteByte(byte(i >> 40))
-	s.WriteByte(byte(i >> 32))
-	s.WriteByte(byte(i >> 24))
-	s.WriteByte(byte(i >> 16))
-	s.WriteByte(byte(i >> 8))
-	s.WriteByte(byte(i & 0xFF))
+	s.WriteByte_(byte(i >> 56))
+	s.WriteByte_(byte(i >> 48))
+	s.WriteByte_(byte(i >> 40))
+	s.WriteByte_(byte(i >> 32))
+	s.WriteByte_(byte(i >> 24))
+	s.WriteByte_(byte(i >> 16))
+	s.WriteByte_(byte(i >> 8))
+	s.WriteByte_(byte(i & 0xFF))
 }
 
-func (s Session) WriteByte(b byte) {
+func (s Session) WriteByte_(b byte) {
 	_, err := s.conn.Write([]byte{b})
 	if err != nil {
 		fmt.Println("Error writing byte(s) to client session.")

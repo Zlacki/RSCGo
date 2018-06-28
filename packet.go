@@ -12,19 +12,19 @@ func (p *packet) incOffset() {
 }
 
 func (p *packet) readLong() uint64 {
-	l := uint64(p.data[p.currentOffset]<<56 | p.data[p.currentOffset+1]<<48 | p.data[p.currentOffset+2]<<40 | p.data[p.currentOffset+3]<<32 | p.data[p.currentOffset+4]<<24 | p.data[p.currentOffset+5]<<16 | p.data[p.currentOffset+6]<<8 | p.data[p.currentOffset+7])
+	l := uint64(uint64(p.data[p.currentOffset])<<56 | uint64(p.data[p.currentOffset+1])<<48 | uint64(p.data[p.currentOffset+2])<<40 | uint64(p.data[p.currentOffset+3])<<32 | uint64(p.data[p.currentOffset+4])<<24 | uint64(p.data[p.currentOffset+5])<<16 | uint64(p.data[p.currentOffset+6])<<8 | uint64(p.data[p.currentOffset+7]))
 	p.currentOffset += 8
 	return l
 }
 
 func (p *packet) readInt() uint32 {
-	i := uint32(p.data[p.currentOffset]<<24 | p.data[p.currentOffset+1]<<16 | p.data[p.currentOffset+2]<<8 | p.data[p.currentOffset+3])
+	i := uint32(uint32(p.data[p.currentOffset])<<24 | uint32(p.data[p.currentOffset+1])<<16 | uint32(p.data[p.currentOffset+2])<<8 | uint32(p.data[p.currentOffset+3]))
 	p.currentOffset += 4
 	return i
 }
 
 func (p *packet) readShort() uint16 {
-	si := uint16(((p.data[p.currentOffset] & 0xFF) << 8) | (p.data[p.currentOffset+1] & 0xFF))
+	si := uint16((uint16(p.data[p.currentOffset] & 0xFF) << 8) | uint16(p.data[p.currentOffset+1] & 0xFF))
 	p.currentOffset += 2
 	return si
 }
