@@ -1,4 +1,4 @@
-[![AppVeyor status](https://ci.appveyor.com/api/projects/status/5wnqy3crbvp653ih?svg=true)](https://ci.appveyor.com/project/Zlacki/rscgo)
+[![TravisCI status](https://travis-ci.org/Zlacki/RSCGo.svg?branch=master)](https://travis-ci.org/Zlacki/RSCGo)
 <!-- [![Equinox status]()](https://dl.equinox.io/zlacki/gorsc) -->
 
 # RSCGo
