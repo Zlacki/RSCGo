@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 import "math/rand"
+import "strings"
 
 type PacketHandler struct {
 	player Player
@@ -16,7 +17,7 @@ func (handler *PacketHandler) loginRequest(packet *packet) {
 	packet.readInt()
 	packet.readInt()
 	userHash := packet.readLong()
-	password := string(packet.data[packet.currentOffset:])
+	password := strings.TrimSpace(string(packet.data[packet.currentOffset:]))
 	handler.player.password = password
 	fmt.Println(userHash)
 	fmt.Println(password)

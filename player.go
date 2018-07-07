@@ -102,6 +102,7 @@ func (self Player) process() {
 		 * Any length of 160 or over should be encoded to
 		 * a short integer.
 		 */
+		 fmt.Println("Length:",length)
 		if length >= 160 {
 			length = (length-160)*256 + int(buffer[caret]&0xFF)
 			caret++
@@ -112,7 +113,7 @@ func (self Player) process() {
 		}
 		opcode := uint8(buffer[caret] & 0xFF)
 		caret++
-		//		length--
+		length--
 		buffer = make([]byte, length)
 		bytesRead, err = self.session.conn.Read(buffer)
 		// Connection reset by peer
@@ -139,8 +140,13 @@ func (self Player) process() {
 		//				length--
 		//			}
 		if length < 160 && length > 0 {
-			buffer[length] = lastByte
-			p := NewPacket(opcode, length, buffer)
+//			buffer[length] = lastByte
+			tmpBuffer := make([]byte, length + 1)
+			for i := 0; i < length; i++ {
+				tmpBuffer[i] = buffer[i]
+			}
+			tmpBuffer[length] = lastByte
+			p := NewPacket(opcode, length, tmpBuffer)
 			ph.HandlePacket(&p)
 		} else if length == 0 {
 			buffer = []byte{lastByte}
